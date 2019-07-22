@@ -2,6 +2,12 @@
 
 ## Environment
 
+Dependencies
+---------------------------
+ * Docker
+ * docker-compose
+ * Python 2/3
+
 ### Generate docker files and required enviroment variables for both dev and production environments
 ```bash
 $ cd devops
@@ -12,10 +18,14 @@ The output this command is print of generation files
 ```bash
 $ cd dev
 $ docker-compose up -d
-$ docker-compose exec app bash
+$ docker-compose exec banking_app bash
 ```
 
 ### Runing Test
+Before run test get all dependencies:
+
+  * Install dependencies with `mix deps.get`
+
 Inside on container run the following command
 
 ```bash
@@ -66,7 +76,7 @@ Parameters Example:
 ```json
 {
   "email": "some@email.com", 
-	"password": "password"
+  "password": "password"
 }
 ```
 Response (example)
@@ -102,8 +112,8 @@ Response (example)
 Parameters Example:
 ```json
 {
-	"account_id": "5eb60246-ede8-4bb4-8c05-9cdb56f170bd",
-	"amount": 500
+  "account_id": "5eb60246-ede8-4bb4-8c05-9cdb56f170bd",
+  "amount": 500
 }
 ```
 Response (example)
@@ -122,9 +132,9 @@ Response (example)
 Parameters Example:
 ```json
 {
-	"account_from_id": "5eb60246-ede8-4bb4-8c05-9cdb56f170bd",
-	"account_to_id": "4eb5752b-08c7-4cee-be14-8bdfa48d1212",
-	"amount": 9000
+  "account_from_id": "5eb60246-ede8-4bb4-8c05-9cdb56f170bd",
+  "account_to_id": "4eb5752b-08c7-4cee-be14-8bdfa48d1212",
+  "amount": 9000
 }
 ```
 Response (example)
@@ -204,9 +214,3 @@ Errors
   }
 }
 ```
-
-Dependencies
----------------------------
- * Docker
- * docker-compose
- * Python 2/3
