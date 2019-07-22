@@ -7,6 +7,7 @@ defmodule Banking.MixProject do
       version: "0.1.0",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       test_coverage: [tool: ExCoveralls],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -40,7 +41,15 @@ defmodule Banking.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:excoveralls, "~> 0.9.1"},
+      {:faker, "~> 0.12", only: [:test, :dev]},
+      {:money, "~> 1.4"},
+      {:comeonin, "~> 4.1"},
+      {:bcrypt_elixir, "~> 1.0"},
+      {:guardian, "~> 1.0"},
+      {:timex, "~> 3.5"},
+      {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false}
     ]
   end
 

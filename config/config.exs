@@ -25,6 +25,13 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :banking, Banking.Auth.Guardian,
+  issuer: "banking",
+  secret_key: System.get_env("JWT_SECRET_KEY")
+
+config :money,
+  default_currency: :BRL
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
