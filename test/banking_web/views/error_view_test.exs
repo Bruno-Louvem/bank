@@ -5,7 +5,10 @@ defmodule BankingWeb.ErrorViewTest do
   import Phoenix.View
 
   test "renders 404.json" do
-    assert render(BankingWeb.ErrorView, "404.json", error: "Not Found") == %{errors: %{detail: "Not Found"}}
+    assert render(BankingWeb.ErrorView, "404.json", error: "Not Found") == %{
+             errors: %{detail: "Not Found"}
+           }
+
     assert render(BankingWeb.ErrorView, "404.json", []) == %{errors: %{detail: "Route not found"}}
   end
 

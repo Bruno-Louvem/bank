@@ -39,6 +39,7 @@ To start your Phoenix server:
 
 e.g.: 100,00 -> 10000
 
+`bank.postman_collection.json` on root directory contains all endpoint to import on Postman
 
 ### Unauthenticated routes
 

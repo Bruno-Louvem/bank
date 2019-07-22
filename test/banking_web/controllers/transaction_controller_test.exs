@@ -13,7 +13,11 @@ defmodule BankingWeb.TransactionControllerTest do
       conn = conn |> put_req_header("authorization", "Bearer #{jwt_account_token}")
       account = insert(:account)
 
-      conn = post(conn, Routes.v1_transaction_path(conn, :deposit), %{amount: 50_000, account_id: account.id})
+      conn =
+        post(conn, Routes.v1_transaction_path(conn, :deposit), %{
+          amount: 50_000,
+          account_id: account.id
+        })
 
       payload = json_response(conn, 200)
 
@@ -34,7 +38,11 @@ defmodule BankingWeb.TransactionControllerTest do
       payload = json_response(conn, 442)
       assert payload |> Map.has_key?("errors")
 
-      conn = post(conn, Routes.v1_transaction_path(conn, :deposit), %{account_id: Ecto.UUID.generate, amount: 50_000})
+      conn =
+        post(conn, Routes.v1_transaction_path(conn, :deposit), %{
+          account_id: Ecto.UUID.generate(),
+          amount: 50_000
+        })
 
       payload = json_response(conn, 404)
       assert payload |> Map.has_key?("errors")
@@ -55,9 +63,17 @@ defmodule BankingWeb.TransactionControllerTest do
       jwt_account_token = jwt_account_token(%{user: account.user})
       conn = conn |> put_req_header("authorization", "Bearer #{jwt_account_token}")
 
+      conn =
+        post(conn, Routes.v1_transaction_path(conn, :deposit), %{
+          amount: 50_000,
+          account_id: account.id
+        })
 
-      conn = post(conn, Routes.v1_transaction_path(conn, :deposit), %{amount: 50_000, account_id: account.id})
-      conn = post(conn, Routes.v1_transaction_path(conn, :withdrawal), %{amount: 40_000, account_id: account.id})
+      conn =
+        post(conn, Routes.v1_transaction_path(conn, :withdrawal), %{
+          amount: 40_000,
+          account_id: account.id
+        })
 
       payload = json_response(conn, 200)
 
@@ -72,8 +88,17 @@ defmodule BankingWeb.TransactionControllerTest do
       jwt_account_token = jwt_account_token(%{user: account.user})
       conn = conn |> put_req_header("authorization", "Bearer #{jwt_account_token}")
 
-      conn = post(conn, Routes.v1_transaction_path(conn, :deposit), %{account_id: account.id, amount: 30_000})
-      conn = post(conn, Routes.v1_transaction_path(conn, :withdrawal), %{account_id: account.id, amount: 40_000})
+      conn =
+        post(conn, Routes.v1_transaction_path(conn, :deposit), %{
+          account_id: account.id,
+          amount: 30_000
+        })
+
+      conn =
+        post(conn, Routes.v1_transaction_path(conn, :withdrawal), %{
+          account_id: account.id,
+          amount: 40_000
+        })
 
       payload = json_response(conn, 500)
       assert payload |> Map.has_key?("errors")
@@ -84,8 +109,17 @@ defmodule BankingWeb.TransactionControllerTest do
       conn = conn |> put_req_header("authorization", "Bearer #{jwt_account_token}")
       account = insert(:account)
 
-      conn = post(conn, Routes.v1_transaction_path(conn, :deposit), %{account_id: account.id, amount: 30_000})
-      conn = post(conn, Routes.v1_transaction_path(conn, :withdrawal), %{account_id: account.id, amount: 40_000})
+      conn =
+        post(conn, Routes.v1_transaction_path(conn, :deposit), %{
+          account_id: account.id,
+          amount: 30_000
+        })
+
+      conn =
+        post(conn, Routes.v1_transaction_path(conn, :withdrawal), %{
+          account_id: account.id,
+          amount: 40_000
+        })
 
       payload = json_response(conn, 403)
       assert payload |> Map.has_key?("errors")
@@ -94,14 +128,15 @@ defmodule BankingWeb.TransactionControllerTest do
 
   describe "transfer" do
     test "transfer to another account", %{conn: conn, jwt_account_token: jwt_account_token_2} do
-
       account = insert(:account)
       jwt_account_token = jwt_account_token(%{user: account.user})
       conn = conn |> put_req_header("authorization", "Bearer #{jwt_account_token}")
 
       conn =
-        post(conn, Routes.v1_transaction_path(conn, :deposit),
-           %{account_id: account.id, amount: 30_000})
+        post(conn, Routes.v1_transaction_path(conn, :deposit), %{
+          account_id: account.id,
+          amount: 30_000
+        })
 
       account_params = %{
         name: Faker.Name.name(),
@@ -120,12 +155,18 @@ defmodule BankingWeb.TransactionControllerTest do
         amount: 10_000
       }
 
-      conn = post(conn, Routes.v1_transaction_path(conn, :transfer), transfer_params |> Map.merge(%{amount: 30_001}))
-      assert json_response(conn, 500) |> Map.has_key?("errors")
+      conn =
+        post(
+          conn,
+          Routes.v1_transaction_path(conn, :transfer),
+          transfer_params |> Map.merge(%{amount: 30_001})
+        )
+
+      assert conn |> json_response(500) |> Map.has_key?("errors")
 
       new_conn = build_conn() |> put_req_header("authorization", "Bearer #{jwt_account_token_2}")
       new_conn = post(new_conn, Routes.v1_transaction_path(new_conn, :transfer), transfer_params)
-      assert json_response(new_conn, 403) |> Map.has_key?("errors")
+      assert new_conn |> json_response(403) |> Map.has_key?("errors")
 
       conn = post(conn, Routes.v1_transaction_path(conn, :transfer), transfer_params)
       %{"transactions" => [transaction_a, transaction_b]} = json_response(conn, 200)
@@ -144,7 +185,13 @@ defmodule BankingWeb.TransactionControllerTest do
     test "get balance", %{conn: conn, jwt_account_token: jwt_account_token} do
       conn = conn |> put_req_header("authorization", "Bearer #{jwt_account_token}")
       account = insert(:account)
-      conn = post(conn, Routes.v1_transaction_path(conn, :deposit), %{amount: 30_000, account_id: account.id})
+
+      conn =
+        post(conn, Routes.v1_transaction_path(conn, :deposit), %{
+          amount: 30_000,
+          account_id: account.id
+        })
+
       conn = get(conn, Routes.v1_transaction_path(conn, :balance, account.id))
       %{"balance" => balance, "account_id" => _} = json_response(conn, 200)
 
@@ -153,7 +200,10 @@ defmodule BankingWeb.TransactionControllerTest do
       assert parsed_balance |> Money.equals?(Money.new(30_000))
     end
 
-    test "no get balance. why? account does not exist", %{conn: conn, jwt_account_token: jwt_account_token} do
+    test "no get balance. why? account does not exist", %{
+      conn: conn,
+      jwt_account_token: jwt_account_token
+    } do
       conn = conn |> put_req_header("authorization", "Bearer #{jwt_account_token}")
       conn = get(conn, Routes.v1_transaction_path(conn, :balance, Ecto.UUID.generate()))
       response = json_response(conn, 404)

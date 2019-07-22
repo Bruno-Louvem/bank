@@ -11,13 +11,13 @@ defmodule BankingWeb.Router do
 
   scope "/api", BankingWeb do
     pipe_through :api
-    
+
     # Unauthenticated routes
     scope "/v1", V1, as: :v1 do
       post "/signin", AuthController, :signin
       post "/signup", AccountController, :create
     end
-    
+
     # Authenticated routes
     scope "/v1", V1, as: :v1 do
       pipe_through [:authenticated]

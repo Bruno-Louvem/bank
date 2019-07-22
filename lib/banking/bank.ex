@@ -61,11 +61,11 @@ defmodule Banking.Bank do
   @spec signup(:invalid | %{optional(:__struct__) => none, optional(atom | binary) => any}) :: any
   def signup(signup_attrs) do
     with {:ok, user} <- signup_attrs |> Auth.create_user(),
-         {:ok, account} <- signup_attrs |> Map.merge(%{"user_id" => user.id}) |> create_account()
-    do
+         {:ok, account} <- signup_attrs |> Map.merge(%{"user_id" => user.id}) |> create_account() do
       account =
-          account
-          |> Repo.preload(:user, force: true)
+        account
+        |> Repo.preload(:user, force: true)
+
       {:ok, account}
     end
   end
@@ -181,13 +181,14 @@ defmodule Banking.Bank do
           Repo.rollback("Transfer not allowed: #{message}")
       end
     end)
-    |> case  do
+    |> case do
       {:error, message} -> {:error, message, 500}
       response -> response
     end
   end
 
-  def transfer(%Account{} = account_a, %Account{} = account_b, amount) when amount |> is_integer do
+  def transfer(%Account{} = account_a, %Account{} = account_b, amount)
+      when amount |> is_integer do
     amount = amount |> Money.new()
 
     account_a

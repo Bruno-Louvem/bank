@@ -6,7 +6,6 @@ defmodule BankingWeb.V1.TransactionController do
   action_fallback BankingWeb.FallbackController
 
   def deposit(conn, %{"amount" => amount, "account_id" => account_id}) do
-
     with {:ok, account} <- account_id |> Bank.get_account(),
          {:ok, account, transaction} <- account |> Bank.deposit(amount) do
       conn
@@ -18,6 +17,7 @@ defmodule BankingWeb.V1.TransactionController do
 
   def withdrawal(conn, %{"amount" => amount, "account_id" => account_id}) do
     user_api_account = conn.assigns.current_user.account
+
     with true <- user_api_account.id == account_id,
          {:ok, account} <- account_id |> Bank.get_account(),
          {:ok, account, transaction} <- account |> Bank.withdrawal(amount) do
@@ -29,8 +29,13 @@ defmodule BankingWeb.V1.TransactionController do
     end
   end
 
-  def transfer(conn, %{"amount" => amount, "account_from_id" => account_a_id, "account_to_id" => account_b_id}) do
+  def transfer(conn, %{
+        "amount" => amount,
+        "account_from_id" => account_a_id,
+        "account_to_id" => account_b_id
+      }) do
     user_api_account = conn.assigns.current_user.account
+
     with true <- user_api_account.id == account_a_id,
          {:ok, account_a} <- account_a_id |> Bank.get_account(),
          {:ok, account_b} <- account_b_id |> Bank.get_account(),
@@ -59,8 +64,7 @@ defmodule BankingWeb.V1.TransactionController do
 
   def balance(conn, %{"account_id" => account_id}) do
     with {:ok, _} <- account_id |> Bank.get_account(),
-          %Money{} = balance <- account_id |> Bank.calc_balance()
-    do
+         %Money{} = balance <- account_id |> Bank.calc_balance() do
       conn |> render("balance.json", balance: balance, account_id: account_id)
     end
   end
