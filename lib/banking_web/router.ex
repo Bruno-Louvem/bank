@@ -23,6 +23,10 @@ defmodule BankingWeb.Router do
       pipe_through [:authenticated]
 
       get "/accounts", AccountController, :index
+      get "/balance/:account_id", TransactionController, :balance
+      post "/deposit", TransactionController, :deposit
+      post "/transfer", TransactionController, :transfer
+      post "/withdrawal", TransactionController, :withdrawal
     end
   end
 end

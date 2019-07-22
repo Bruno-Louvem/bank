@@ -34,6 +34,13 @@ defmodule Banking.Factory do
     }
   end
 
+  defp entity(context, :transaction) do
+    %Bank.Transaction{
+      account: get_assoc(context, :account),
+      amount: 10..100 |> Enum.random() |> Money.new()
+    }
+  end
+
   # Convenience API
 
   @doc """
