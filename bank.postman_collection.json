@@ -1,0 +1,239 @@
+{
+	"info": {
+		"_postman_id": "85af5eb8-d4a5-4647-8ccd-e3b08170d617",
+		"name": "bank",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"bruno@gmail.com\", \n\t\"password\": \"123456\",\n\t\"name\": \"Bruno\"\n}"
+				},
+				"url": {
+					"raw": "localhost:4000/api/v1/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"v1",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"btlouvem@gmail.com\",\n\t\"password\": \"123456\"\n}"
+				},
+				"url": {
+					"raw": "localhost:4000/api/v1/signin",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"v1",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deposit",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJiYW5raW5nIiwiZXhwIjoxNTY2MjI0MDgzLCJpYXQiOjE1NjM4MDQ4ODMsImlzcyI6ImJhbmtpbmciLCJqdGkiOiIxMWZkYjJlOS02MDNkLTQ4MWItYTU4ZS1mYTJkYjdmNDE2YzkiLCJuYmYiOjE1NjM4MDQ4ODIsInN1YiI6IjgyNWQ3ZjljLWRjNjUtNDA3Mi05OTAyLWZjNGIzNjhmYWQ1MiIsInR5cCI6ImFjY2VzcyJ9.t_F-MJVwTHGZkYlW6pwrlQmwGfh1SWYR0i7KTPUq1EtWHD1_9gDAmR61PC3YfFCTXql-PJcfB_g7kdSxeH9aKA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"account_id\": \"5eb60246-ede8-4bb4-8c05-9cdb56f170bd\",\n\t\"amount\": 10000\n}"
+				},
+				"url": {
+					"raw": "localhost:4000/api/v1/deposit",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"v1",
+						"deposit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:4000/api/v1/balance/5eb60246-ede8-4bb4-8c05-9cdb56f170bd",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJiYW5raW5nIiwiZXhwIjoxNTY2MjI0MDgzLCJpYXQiOjE1NjM4MDQ4ODMsImlzcyI6ImJhbmtpbmciLCJqdGkiOiIxMWZkYjJlOS02MDNkLTQ4MWItYTU4ZS1mYTJkYjdmNDE2YzkiLCJuYmYiOjE1NjM4MDQ4ODIsInN1YiI6IjgyNWQ3ZjljLWRjNjUtNDA3Mi05OTAyLWZjNGIzNjhmYWQ1MiIsInR5cCI6ImFjY2VzcyJ9.t_F-MJVwTHGZkYlW6pwrlQmwGfh1SWYR0i7KTPUq1EtWHD1_9gDAmR61PC3YfFCTXql-PJcfB_g7kdSxeH9aKA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"account_id\": \"5eb60246-ede8-4bb4-8c05-9cdb56f170bd\"\n}"
+				},
+				"url": {
+					"raw": "localhost:4000/api/v1/balance/5eb60246-ede8-4bb4-8c05-9cdb56f170bd",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"v1",
+						"balance",
+						"5eb60246-ede8-4bb4-8c05-9cdb56f170bd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transfer",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJiYW5raW5nIiwiZXhwIjoxNTY2MjI0MDgzLCJpYXQiOjE1NjM4MDQ4ODMsImlzcyI6ImJhbmtpbmciLCJqdGkiOiIxMWZkYjJlOS02MDNkLTQ4MWItYTU4ZS1mYTJkYjdmNDE2YzkiLCJuYmYiOjE1NjM4MDQ4ODIsInN1YiI6IjgyNWQ3ZjljLWRjNjUtNDA3Mi05OTAyLWZjNGIzNjhmYWQ1MiIsInR5cCI6ImFjY2VzcyJ9.t_F-MJVwTHGZkYlW6pwrlQmwGfh1SWYR0i7KTPUq1EtWHD1_9gDAmR61PC3YfFCTXql-PJcfB_g7kdSxeH9aKA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"account_from_id\": \"5eb60246-ede8-4bb4-8c05-9cdb56f170bd\",\n\t\"account_to_id\": \"4eb5752b-08c7-4cee-be14-8bdfa48d1212\",\n\t\"amount\": 9000\n}"
+				},
+				"url": {
+					"raw": "localhost:4000/api/v1/transfer",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"v1",
+						"transfer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Withdrawal",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJiYW5raW5nIiwiZXhwIjoxNTY2MjI0MDgzLCJpYXQiOjE1NjM4MDQ4ODMsImlzcyI6ImJhbmtpbmciLCJqdGkiOiIxMWZkYjJlOS02MDNkLTQ4MWItYTU4ZS1mYTJkYjdmNDE2YzkiLCJuYmYiOjE1NjM4MDQ4ODIsInN1YiI6IjgyNWQ3ZjljLWRjNjUtNDA3Mi05OTAyLWZjNGIzNjhmYWQ1MiIsInR5cCI6ImFjY2VzcyJ9.t_F-MJVwTHGZkYlW6pwrlQmwGfh1SWYR0i7KTPUq1EtWHD1_9gDAmR61PC3YfFCTXql-PJcfB_g7kdSxeH9aKA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"account_id\": \"5eb60246-ede8-4bb4-8c05-9cdb56f170bd\",\n\t\"amount\": 500\n}"
+				},
+				"url": {
+					"raw": "localhost:4000/api/v1/withdrawal",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"v1",
+						"withdrawal"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
