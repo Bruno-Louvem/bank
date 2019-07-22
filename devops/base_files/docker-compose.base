@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  banking_postgres:
+    image: postgres:11.3-alpine
+    environment:  
+      - POSTGRES_USER=banking_user
+      - POSTGRES_DB=banking_db
+      - POSTGRESQL_PASSWORD=banking_pass
+    container_name: banking_postgres
+    restart: always
+    ports: 
+      - 5432:5432
+  banking_app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: banking_app
+    ports:
+      - 4000:4000
+    volumes:
+      - ../../:/opt/app
+      - ~/.gitconfig:/root/.gitconfig
+      - ~/.ssh:/root/.ssh
+    command: sleep infinity
+    depends_on:
+      - banking_postgres

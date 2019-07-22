@@ -43,7 +43,7 @@ Parameters Example:
   "name": "some name",
   "email": "email@test.com"
 }
-``` 
+```
 **GET** `localhost:4000/api/accounts`
 Return the account list
 
